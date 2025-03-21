@@ -1,0 +1,24 @@
+<h1>Orders</h1>
+
+<%= form_with url: orders_path, method: :get, local: true do %>
+  <%= select_tag :status, options_for_select(Order.statuses.keys, params[:status]) %>
+  <%= submit_tag "Filter" %>
+<% end %>
+
+<table>
+  <tr>
+    <th>Order ID</th>
+    <th>Status</th>
+    <th>Customer</th>
+    <th>Total</th>
+  </tr>
+
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.id %></td>
+      <td><%= order.status %></td>
+      <td><%= order.user.email %></td>
+      <td><%= number_to_currency(order.total) %></td>
+    </tr>
+  <% end %>
+</table>
