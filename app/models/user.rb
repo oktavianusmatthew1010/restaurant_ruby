@@ -48,4 +48,13 @@ class User < ApplicationRecord
             }
         end
     end
+    def user_otp
+        class User < ApplicationRecord
+            devise :two_factor_authenticatable, otp_secret_encryption_key: ENV['OTP_SECRET_KEY']
+          
+            def enable_otp
+              update(otp_enabled: true, otp_secret_key: User.generate_otp_secret)
+            end
+          end
+          
 end
